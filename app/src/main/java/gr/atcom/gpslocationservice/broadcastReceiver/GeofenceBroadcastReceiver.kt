@@ -7,11 +7,16 @@ import android.widget.Toast
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofenceStatusCodes
 import com.google.android.gms.location.GeofencingEvent
+import gr.atcom.gpslocationservice.geofence.GeofenceUtil.Companion.GEOFENCE_BIG_RADIUS_ID
+import gr.atcom.gpslocationservice.geofence.GeofenceUtil.Companion.GEOFENCE_ID
 import timber.log.Timber
 
 class GeofenceBroadcastReceiver : BroadcastReceiver() {
 
+    private lateinit var context: Context
+
     override fun onReceive(context: Context, intent: Intent) {
+        this.context = context
         val geofencingEvent = GeofencingEvent.fromIntent(intent)
 
         if (geofencingEvent.hasError()) {
@@ -22,15 +27,37 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
         }
 
         val geofenceTransition = geofencingEvent.geofenceTransition
+        val geofenceId = geofencingEvent.triggeringGeofences[0].requestId
 
-        if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
-            Timber.d("Enter in geofence")
-            Toast.makeText(context, "Enter geofencing", Toast.LENGTH_SHORT).show()
+        when (geofenceId) {
+            GEOFENCE_BIG_RADIUS_ID -> { bigGeofenceTrigger(geofenceTransition) }
+            GEOFENCE_ID -> { smallGeofenceTrigger(geofenceTransition) }
         }
+    }
 
-        if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL) {
-            Timber.d("Location Found!!!!!!! ")
-            Toast.makeText(context, "Dwellingggg", Toast.LENGTH_SHORT).show()
+    private fun bigGeofenceTrigger(geofenceTransition: Int) {
+        when (geofenceTransition) {
+            Geofence.GEOFENCE_TRANSITION_ENTER -> {
+                Timber.d("Enter in BIG geofence")
+                Toast.makeText(context, "Enter BIG geofencing", Toast.LENGTH_SHORT).show()
+            }
+            Geofence.GEOFENCE_TRANSITION_EXIT -> {
+                Timber.d("EXIT from BIG geofence")
+                Toast.makeText(context, "EXIT BIG geofencing", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun smallGeofenceTrigger(geofenceTransition: Int) {
+        when (geofenceTransition) {
+            Geofence.GEOFENCE_TRANSITION_ENTER -> {
+                Timber.d("Enter in SMALL geofence")
+                Toast.makeText(context, "Enter SMALL geofencing", Toast.LENGTH_SHORT).show()
+            }
+            Geofence.GEOFENCE_TRANSITION_EXIT -> {
+                Timber.d("EXIT from SMALL geofence")
+                Toast.makeText(context, "EXIT SMALL geofencing", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

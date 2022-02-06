@@ -17,6 +17,7 @@ class GeofenceUtil(context: Context) {
 
     companion object {
         const val GEOFENCE_ID: String = "geofenceId"
+        const val GEOFENCE_BIG_RADIUS_ID: String = "GEOFENCE_BIG_RADIUS_ID"
         const val GEOFENCE_ID_DWELL: String = "GEOFENCE_ID_DWELL"
     }
 
@@ -28,7 +29,17 @@ class GeofenceUtil(context: Context) {
             .setCircularRegion(
                 37.5133989, 22.3711960, 10f
             )
-            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
+            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_EXIT)
+            .setExpirationDuration(Geofence.NEVER_EXPIRE)
+            .setNotificationResponsiveness(1000)
+            .build()
+        ,
+        Geofence.Builder()
+            .setRequestId(GEOFENCE_BIG_RADIUS_ID)
+            .setCircularRegion(
+                37.5133989, 22.3711960, 60f
+            )
+            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_EXIT)
             .setExpirationDuration(Geofence.NEVER_EXPIRE)
             .setNotificationResponsiveness(1000)
             .build()

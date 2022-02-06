@@ -60,12 +60,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun addCircleToMap() {
-        val circleOptions = CircleOptions()
+        val innerCircle = CircleOptions()
             .center(LatLng(37.5133989, 22.3711960))
             .radius(10.0)
             .strokeWidth(1.0f)
-            .strokeColor(ContextCompat.getColor(this, R.color.map_color_stroke))
+            .strokeColor(ContextCompat.getColor(this, R.color.map_color_fill))
             .fillColor(ContextCompat.getColor(this, R.color.map_color_fill))
-        mMap?.addCircle(circleOptions) // Draw new circle.
+
+
+        val outerCircle = CircleOptions()
+            .center(LatLng(37.5133989, 22.3711960))
+            .radius(60.0)
+            .strokeWidth(1.0f)
+            .strokeColor(ContextCompat.getColor(this, R.color.map_outer_circle_color_fill))
+            .fillColor(ContextCompat.getColor(this, R.color.map_outer_circle_color_fill))
+        mMap.addCircle(outerCircle) // Draw new circle.
+        mMap.addCircle(innerCircle) // Draw new circle.
     }
 }

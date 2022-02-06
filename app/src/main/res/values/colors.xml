@@ -11,4 +11,6 @@
 
     <color name="map_color_stroke">#FF0000</color>
     <color name="map_color_fill">#9ABA2626</color>
+    <color name="map_outer_circle_color_stroke">#0040FF</color>
+    <color name="map_outer_circle_color_fill">#4B0040FF</color>
 </resources>
