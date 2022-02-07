@@ -73,6 +73,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GeofenceListener {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        binding.fab.setOnClickListener {
+            val isServiceRunning = GpsIntentService.onFabClicked(this)
+            changeFabIcon(isServiceRunning)
+        }
     }
 
     private fun setUpObservers() {
@@ -83,6 +88,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GeofenceListener {
         }
 
         vm.notificationData.observe(this, notificationObserver)
+    }
+
+    private fun changeFabIcon(isServiceRunning: Boolean) {
+        binding.fab.setImageResource( if (isServiceRunning) R.drawable.ic_stop else R.drawable.ic_start)
     }
 
     private fun requestLocationPermissions() {

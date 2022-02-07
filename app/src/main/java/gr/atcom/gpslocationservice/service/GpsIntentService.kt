@@ -71,19 +71,30 @@ class GpsIntentService : IntentService("GpsIntentService") {
 
 
     companion object {
-        private lateinit var context: Context
+        var isServiceRunning: Boolean = false
 
         @JvmStatic
         fun startService(context: Context) {
-            this.context = context
             val intent = Intent(context, GpsIntentService::class.java)
             context.startForegroundService(intent)
+            isServiceRunning = true
         }
 
         @JvmStatic
         fun stopService(context: Context) {
             val intent = Intent(context, GpsIntentService::class.java)
             context.stopService(intent)
+            isServiceRunning = false
+        }
+
+        @JvmStatic
+        fun onFabClicked(context: Context): Boolean {
+            if (isServiceRunning) {
+                stopService(context)
+            } else {
+                startService(context)
+            }
+            return isServiceRunning
         }
     }
 }
