@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">GpsLocationService</string>
-    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_maps">HomeAutomation</string>
     <string name="maps_api_key">AIzaSyCxjVU2OTDqAe_FMiq29Tsg3M821LPx52M</string>
 </resources>
