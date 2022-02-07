@@ -1,5 +1,5 @@
 # GpsLocationService
-<h3>This is an android application that uses Android Services, Geolocation, Google Maps and Retrofit to achieve it's goal.</h3>
+<h3>This is an Android application that uses Android Services, Geolocation, Google Maps and Retrofit to achieve it's goal.</h3>
 
 <p>Let's make a short brief.</p> 
 <p>I have already built a system with Arduino, Raspberry Pi, Esp8266 and Wifi Relay Module that opens the electronic lock in my main door. <br>
