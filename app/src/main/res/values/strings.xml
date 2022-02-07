@@ -1,5 +1,8 @@
 <resources>
-    <string name="app_name">GpsLocationService</string>
-    <string name="title_activity_maps">HomeAutomation</string>
+    <string name="app_name">Home \nAutomation</string>
+    <string name="title_activity_maps">Home \nAutomation</string>
     <string name="maps_api_key">AIzaSyCxjVU2OTDqAe_FMiq29Tsg3M821LPx52M</string>
+
+    <string name="default_notification_channel_id" translatable="false">GpsLocationService</string>
+    <string name="second_notification_channel_id" translatable="false">SecondGpsLocationService</string>
 </resources>

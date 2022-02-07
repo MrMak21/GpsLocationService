@@ -11,23 +11,18 @@ import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.GeofencingRequest
 import com.google.android.gms.location.LocationServices
 import gr.atcom.gpslocationservice.broadcastReceiver.GeofenceBroadcastReceiver
+import gr.atcom.gpslocationservice.definitions.Definitions
 import timber.log.Timber
 
 class GeofenceUtil(context: Context) {
-
-    companion object {
-        const val GEOFENCE_ID: String = "geofenceId"
-        const val GEOFENCE_BIG_RADIUS_ID: String = "GEOFENCE_BIG_RADIUS_ID"
-        const val GEOFENCE_ID_DWELL: String = "GEOFENCE_ID_DWELL"
-    }
 
     private var geofencingClient: GeofencingClient = LocationServices.getGeofencingClient(context)
 
     private var geofenceList: List<Geofence> = arrayListOf(
         Geofence.Builder()
-            .setRequestId(GEOFENCE_ID)
+            .setRequestId(Definitions.GEOFENCE_ID)
             .setCircularRegion(
-                37.5133989, 22.3711960, 10f
+                Definitions.HOME_LATITUDE, Definitions.HOME_LONGITUDE, 10f
             )
             .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_EXIT)
             .setExpirationDuration(Geofence.NEVER_EXPIRE)
@@ -35,9 +30,9 @@ class GeofenceUtil(context: Context) {
             .build()
         ,
         Geofence.Builder()
-            .setRequestId(GEOFENCE_BIG_RADIUS_ID)
+            .setRequestId(Definitions.GEOFENCE_BIG_RADIUS_ID)
             .setCircularRegion(
-                37.5133989, 22.3711960, 60f
+                Definitions.HOME_LATITUDE, Definitions.HOME_LONGITUDE, 60f
             )
             .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_EXIT)
             .setExpirationDuration(Geofence.NEVER_EXPIRE)
@@ -67,12 +62,9 @@ class GeofenceUtil(context: Context) {
                 addOnFailureListener {
                     Timber.d("Geofence not added")
                     Timber.d(it.message)
-
                 }
             }
         }
-
     }
-
 
 }

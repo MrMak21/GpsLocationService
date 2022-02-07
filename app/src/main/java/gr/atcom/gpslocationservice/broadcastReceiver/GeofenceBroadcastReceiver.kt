@@ -7,8 +7,9 @@ import android.widget.Toast
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofenceStatusCodes
 import com.google.android.gms.location.GeofencingEvent
-import gr.atcom.gpslocationservice.geofence.GeofenceUtil.Companion.GEOFENCE_BIG_RADIUS_ID
-import gr.atcom.gpslocationservice.geofence.GeofenceUtil.Companion.GEOFENCE_ID
+import gr.atcom.gpslocationservice.definitions.Definitions
+import gr.atcom.gpslocationservice.listener.GeofenceListenerObject
+import gr.atcom.gpslocationservice.ui.MapsActivity
 import timber.log.Timber
 
 class GeofenceBroadcastReceiver : BroadcastReceiver() {
@@ -30,9 +31,12 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
         val geofenceId = geofencingEvent.triggeringGeofences[0].requestId
 
         when (geofenceId) {
-            GEOFENCE_BIG_RADIUS_ID -> { bigGeofenceTrigger(geofenceTransition) }
-            GEOFENCE_ID -> { smallGeofenceTrigger(geofenceTransition) }
+            Definitions.GEOFENCE_BIG_RADIUS_ID -> { bigGeofenceTrigger(geofenceTransition) }
+            Definitions.GEOFENCE_ID -> { smallGeofenceTrigger(geofenceTransition) }
         }
+
+        val observableObject = GeofenceListenerObject(MapsActivity.instance)
+        observableObject.geofenceTriggered(geofenceId, geofenceTransition)
     }
 
     private fun bigGeofenceTrigger(geofenceTransition: Int) {

@@ -7,8 +7,10 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import androidx.core.content.ContextCompat
 import gr.atcom.gpslocationservice.MainActivity
 import gr.atcom.gpslocationservice.R
+import gr.atcom.gpslocationservice.application.GpsLocationApplication
 import gr.atcom.gpslocationservice.geofence.GeofenceUtil
 import timber.log.Timber
 
@@ -37,9 +39,9 @@ class GpsIntentService : IntentService("GpsIntentService") {
             }
 
         val channelId = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createNotificationChannel("gpsNotificationsChannel", "Gps Notification channel")
+            createNotificationChannel(getString(R.string.default_notification_channel_id), "Gps Location Foreground Channel")
         } else {
-            ""
+            getString(R.string.default_notification_channel_id)
         }
 
         val notification: Notification = Notification.Builder(this, channelId)
@@ -69,8 +71,11 @@ class GpsIntentService : IntentService("GpsIntentService") {
 
 
     companion object {
+        private lateinit var context: Context
+
         @JvmStatic
         fun startService(context: Context) {
+            this.context = context
             val intent = Intent(context, GpsIntentService::class.java)
             context.startForegroundService(intent)
         }

@@ -1,14 +1,10 @@
 package gr.atcom.gpslocationservice
 
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import gr.atcom.gpslocationservice.databinding.ActivityMainBinding
-import gr.atcom.gpslocationservice.geofence.GeofenceUtil
 import gr.atcom.gpslocationservice.service.GpsIntentService
-import gr.atcom.gpslocationservice.service.GpsReceiver
 import gr.atcom.gpslocationservice.ui.MapsActivity
 import timber.log.Timber
 import timber.log.Timber.Forest.plant
