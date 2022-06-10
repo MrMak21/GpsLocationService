@@ -35,7 +35,7 @@ class GpsIntentService : IntentService("GpsIntentService") {
 
         val notificationPendingIntent: PendingIntent =
             Intent(this, MainActivity::class.java).let { it ->
-                PendingIntent.getActivity(this, 0, it, 0)
+                PendingIntent.getActivity(this, 0, it, PendingIntent.FLAG_MUTABLE)
             }
 
         val channelId = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
